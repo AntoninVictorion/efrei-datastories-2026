@@ -1,0 +1,402 @@
+{
+  "source": {
+    "url": "https://www.data.gouv.fr/api/1/datasets/r/5f71ba43-afc8-43a0-b306-dafe29940f9c",
+    "downloaded_on": "2026-10-19",
+    "size_bytes": "990427836",
+    "sha256": "6469d316ac847e5bdebd65cca4a0a5f1020fde4a398c38ae4c817f69f15b84e6"
+  },
+  "resume": {
+    "lignes_perimetre": 1663200,
+    "annees": [
+      2015,
+      2024
+    ],
+    "pathologies_top": 24,
+    "lignes_par_niveau_geo": {
+      "dept": 1399860,
+      "region": 249480,
+      "france": 13860
+    },
+    "valeurs_non_numeriques_ignorees": {}
+  },
+  "masquage": {
+    "par_niveau_geo_et_tous_ages": {
+      "dept|tous_ages=False": {
+        "lignes": 1333200,
+        "masquees": 461111,
+        "part": 0.3459
+      },
+      "dept|tous_ages=True": {
+        "lignes": 66660,
+        "masquees": 180,
+        "part": 0.0027
+      },
+      "france|tous_ages=False": {
+        "lignes": 13200,
+        "masquees": 848,
+        "part": 0.0642
+      },
+      "france|tous_ages=True": {
+        "lignes": 660,
+        "masquees": 0,
+        "part": 0.0
+      },
+      "region|tous_ages=False": {
+        "lignes": 237600,
+        "masquees": 66185,
+        "part": 0.2786
+      },
+      "region|tous_ages=True": {
+        "lignes": 11880,
+        "masquees": 178,
+        "part": 0.015
+      }
+    },
+    "departements_par_classe_age": {
+      "00-04": 0.8031,
+      "05-09": 0.7341,
+      "10-14": 0.7161,
+      "15-19": 0.6847,
+      "20-24": 0.649,
+      "25-29": 0.5945,
+      "30-34": 0.5189,
+      "35-39": 0.4455,
+      "40-44": 0.3631,
+      "45-49": 0.2481,
+      "50-54": 0.1133,
+      "55-59": 0.0511,
+      "60-64": 0.0329,
+      "65-69": 0.0288,
+      "70-74": 0.0354,
+      "75-79": 0.0526,
+      "80-84": 0.0789,
+      "85-89": 0.1243,
+      "90-94": 0.2326,
+      "95et+": 0.4105
+    },
+    "departements_part_masquee_famille_annee": {
+      "Cancers|2015": 0.3558,
+      "Cancers|2016": 0.3531,
+      "Cancers|2017": 0.3509,
+      "Cancers|2018": 0.348,
+      "Cancers|2019": 0.3461,
+      "Cancers|2020": 0.3463,
+      "Cancers|2021": 0.3457,
+      "Cancers|2022": 0.3441,
+      "Cancers|2023": 0.3434,
+      "Cancers|2024": 0.3415,
+      "Maladies neurologiques|2015": 0.3095,
+      "Maladies neurologiques|2016": 0.3064,
+      "Maladies neurologiques|2017": 0.3035,
+      "Maladies neurologiques|2018": 0.301,
+      "Maladies neurologiques|2019": 0.2981,
+      "Maladies neurologiques|2020": 0.2976,
+      "Maladies neurologiques|2021": 0.2941,
+      "Maladies neurologiques|2022": 0.2928,
+      "Maladies neurologiques|2023": 0.2905,
+      "Maladies neurologiques|2024": 0.2873
+    }
+  },
+  "prevalence_cnam_vs_recalculee": {
+    "lignes_comparees": 1134698,
+    "part_ecart_sup_tolerance": 0.1321,
+    "ecart_abs_max": 6.9494,
+    "groupes": {
+      "tous_ages=False|sexe=F|dept": {
+        "n": 275002,
+        "part_ecart_sup_tolerance": 0.1622,
+        "ecart_median": -0.0005,
+        "ecart_abs_p95": 0.1095,
+        "ecart_abs_max": 4.7802,
+        "ratio_prev_cnam_sur_calc_median": 0.9994
+      },
+      "tous_ages=False|sexe=F|france": {
+        "n": 3941,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0008,
+        "ecart_abs_max": 0.0038,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=False|sexe=F|region": {
+        "n": 54959,
+        "part_ecart_sup_tolerance": 0.0552,
+        "ecart_median": -0.0003,
+        "ecart_abs_p95": 0.0534,
+        "ecart_abs_max": 4.7802,
+        "ratio_prev_cnam_sur_calc_median": 0.9997
+      },
+      "tous_ages=False|sexe=H|dept": {
+        "n": 262937,
+        "part_ecart_sup_tolerance": 0.2179,
+        "ecart_median": -0.0006,
+        "ecart_abs_p95": 0.2075,
+        "ecart_abs_max": 6.9494,
+        "ratio_prev_cnam_sur_calc_median": 0.9993
+      },
+      "tous_ages=False|sexe=H|france": {
+        "n": 3901,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0017,
+        "ecart_abs_max": 0.0127,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=False|sexe=H|region": {
+        "n": 52424,
+        "part_ecart_sup_tolerance": 0.0911,
+        "ecart_median": -0.0003,
+        "ecart_abs_p95": 0.092,
+        "ecart_abs_max": 4.444,
+        "ratio_prev_cnam_sur_calc_median": 0.9997
+      },
+      "tous_ages=False|sexe=T|dept": {
+        "n": 334150,
+        "part_ecart_sup_tolerance": 0.1106,
+        "ecart_median": -0.0007,
+        "ecart_abs_p95": 0.0966,
+        "ecart_abs_max": 4.4717,
+        "ratio_prev_cnam_sur_calc_median": 0.9994
+      },
+      "tous_ages=False|sexe=T|france": {
+        "n": 4510,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0008,
+        "ecart_abs_max": 0.0098,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=False|sexe=T|region": {
+        "n": 64032,
+        "part_ecart_sup_tolerance": 0.0503,
+        "ecart_median": -0.0002,
+        "ecart_abs_p95": 0.0503,
+        "ecart_abs_max": 4.032,
+        "ratio_prev_cnam_sur_calc_median": 0.9998
+      },
+      "tous_ages=True|sexe=F|dept": {
+        "n": 21125,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0001,
+        "ecart_abs_p95": 0.0044,
+        "ecart_abs_max": 0.014,
+        "ratio_prev_cnam_sur_calc_median": 0.9999
+      },
+      "tous_ages=True|sexe=F|france": {
+        "n": 210,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0005,
+        "ecart_abs_max": 0.0005,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=True|sexe=F|region": {
+        "n": 3697,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.003,
+        "ecart_abs_max": 0.0105,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=True|sexe=H|dept": {
+        "n": 21148,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0002,
+        "ecart_abs_p95": 0.0048,
+        "ecart_abs_max": 0.0148,
+        "ratio_prev_cnam_sur_calc_median": 0.9998
+      },
+      "tous_ages=True|sexe=H|france": {
+        "n": 210,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0005,
+        "ecart_abs_max": 0.0005,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=True|sexe=H|region": {
+        "n": 3718,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0034,
+        "ecart_abs_max": 0.0142,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=True|sexe=T|dept": {
+        "n": 24207,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0001,
+        "ecart_abs_p95": 0.0029,
+        "ecart_abs_max": 0.0144,
+        "ratio_prev_cnam_sur_calc_median": 0.9999
+      },
+      "tous_ages=True|sexe=T|france": {
+        "n": 240,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": 0.0,
+        "ecart_abs_p95": 0.0005,
+        "ecart_abs_max": 0.0005,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      },
+      "tous_ages=True|sexe=T|region": {
+        "n": 4287,
+        "part_ecart_sup_tolerance": 0.0,
+        "ecart_median": -0.0,
+        "ecart_abs_p95": 0.0022,
+        "ecart_abs_max": 0.0135,
+        "ratio_prev_cnam_sur_calc_median": 1.0
+      }
+    }
+  },
+  "geographie": {
+    "CAN_CAT_CAT": {
+      "france_sur_somme_des_regions_par_annee": {
+        "2015": 1.0145,
+        "2016": 1.0052,
+        "2017": 1.0045,
+        "2018": 1.0039,
+        "2019": 1.0031,
+        "2020": 1.0028,
+        "2021": 1.0027,
+        "2022": 1.0026,
+        "2023": 1.0025,
+        "2024": 1.0022
+      },
+      "total_regional_sur_somme_departements": {
+        "regions_annees_comparables": 180,
+        "mediane": 1.0,
+        "min": 0.9999,
+        "max": 1.0156
+      }
+    },
+    "NEU_CAT_CAT": {
+      "france_sur_somme_des_regions_par_annee": {
+        "2015": 1.0138,
+        "2016": 1.0049,
+        "2017": 1.0041,
+        "2018": 1.0035,
+        "2019": 1.0026,
+        "2020": 1.0023,
+        "2021": 1.0022,
+        "2022": 1.0021,
+        "2023": 1.0021,
+        "2024": 1.0018
+      },
+      "total_regional_sur_somme_departements": {
+        "regions_annees_comparables": 180,
+        "mediane": 1.0,
+        "min": 0.9998,
+        "max": 1.0124
+      }
+    },
+    "NEU_DEM_CAT": {
+      "france_sur_somme_des_regions_par_annee": {
+        "2015": 1.0169,
+        "2016": 1.0055,
+        "2017": 1.0044,
+        "2018": 1.0036,
+        "2019": 1.0026,
+        "2020": 1.0024,
+        "2021": 1.002,
+        "2022": 1.0021,
+        "2023": 1.002,
+        "2024": 1.0017
+      },
+      "total_regional_sur_somme_departements": {
+        "regions_annees_comparables": 180,
+        "mediane": 1.0,
+        "min": 0.9995,
+        "max": 1.0207
+      }
+    }
+  },
+  "categorie_vs_actif_plus_surveillance": {
+    "CAN_AUT": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "CAN_BPU": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0001,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "CAN_CRE": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "CAN_PRO": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "CAN_SEI": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    }
+  },
+  "population_npop": {
+    "part_cellules_npop_differant_selon_pathologie": 0.2818,
+    "france_npop_tous_ages_sur_somme_classes": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "france_npop_tous_sexes_sur_h_plus_f": {
+      "2015": 1.0,
+      "2016": 1.0,
+      "2017": 1.0,
+      "2018": 1.0,
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    }
+  }
+}

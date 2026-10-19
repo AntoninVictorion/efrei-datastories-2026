@@ -1,0 +1,10 @@
+streamlit>=1.33
+pandas>=2.2,<3
+numpy>=1.26,<3
+pyarrow>=15
+plotly>=5.20
+altair>=5.2
+pydeck>=0.9
+geopandas>=0.14
+shapely>=2.0
+requests>=2.31

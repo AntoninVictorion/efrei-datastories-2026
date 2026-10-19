@@ -1,0 +1,25 @@
+# Données volumineuses (reconstruites par scripts\download_data.py)
+data/raw/
+data/interim/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Environnements et IDE
+.venv/
+.env
+.vscode/
+.idea/
+
+# Streamlit : secrets locaux
+.streamlit/secrets.toml
+
+# Système
+.DS_Store
+Thumbs.db
+
+
+
+IndividualStudentPRJ_*.pdf

@@ -1,0 +1,55 @@
+DIAGNOSTIC - facts.parquet
+Lignes : 1,663,200 | référence Npop : CAN_CAT_CAT
+
+== A. Npop différent de celui de la pathologie de référence
+  Part des lignes concernées :   6.69 %
+  Pathologies concernées : 6 sur 24
+    CAN_SEI_CAT :  41.30 % des lignes | écart relatif médian 0.4783 | max 0.5468
+    CAN_SEI_ACT :  40.24 % des lignes | écart relatif médian 0.4779 | max 0.5468
+    CAN_SEI_SUR :  39.54 % des lignes | écart relatif médian 0.4776 | max 0.5468
+    CAN_PRO_CAT :  34.95 % des lignes | écart relatif médian 0.5232 | max 0.8367
+    CAN_PRO_ACT :  32.97 % des lignes | écart relatif médian 0.5241 | max 0.8367
+    CAN_PRO_SUR :  31.85 % des lignes | écart relatif médian 0.5250 | max 0.8367
+  Par sexe : F=0.00 % | H=0.00 % | T=18.40 %
+  Par niveau géographique : dept=6.56 % | france=9.00 % | region=7.30 %
+  Tous âges / classes détaillées : détaillé=6.57 % | tous âges=9.09 %
+  Lignes masquées / non masquées : non masquée=8.08 % | masquée=3.71 %
+
+== B. Écart prev_cnam vs ntop/npop*100 (lignes détaillées, départements et régions)
+  Lignes comparées : 1,043,504 | écart > 0.05 point :  14.36 %
+  B1. Selon la taille de la population (déciles de npop) :
+          (49.999, 3960.0] : écart>tol  79.53 % | |écart| médian 0.1166
+          (3960.0, 6890.0] : écart>tol  45.47 % | |écart| médian 0.0464
+          (6890.0, 9770.0] : écart>tol  17.73 % | |écart| médian 0.0305
+         (9770.0, 13330.0] : écart>tol   0.75 % | |écart| médian 0.0222
+        (13330.0, 17610.0] : écart>tol   0.00 % | |écart| médian 0.0167
+        (17610.0, 23280.0] : écart>tol   0.00 % | |écart| médian 0.0127
+        (23280.0, 33600.0] : écart>tol   0.00 % | |écart| médian 0.0089
+        (33600.0, 48040.0] : écart>tol   0.00 % | |écart| médian 0.0062
+        (48040.0, 94910.0] : écart>tol   0.00 % | |écart| médian 0.0037
+       (94910.0, 964400.0] : écart>tol   0.00 % | |écart| médian 0.0013
+  B2. Selon l'effectif de patients :
+       20-49 : écart>tol  19.88 % (n=230,353)
+       50-99 : écart>tol  17.38 % (n=176,895)
+     100-499 : écart>tol  13.87 % (n=359,433)
+        500+ : écart>tol   5.47 % (n=223,115)
+  B3. Effectifs arrondis ? (part de ntop multiple de 5 / de 10)
+     écart > tol : multiple de 5 = 100.00 % | multiple de 10 = 100.00 %
+    écart <= tol : multiple de 5 = 100.00 % | multiple de 10 = 100.00 %
+  B4. Effectif implicite (prev_cnam * npop / 100) moins ntop, sur les lignes à écart > tol :
+    quantiles 5/25/50/75/95 % : [-5.0, -4.0, -2.1, 3.0, 4.0]
+    part où |écart| <= 0,5 patient : 0.36 % | <= 5 patients : 89.85 %
+  B5. Dénominateur de référence ?
+    part des écarts qui disparaissent avec le Npop de CAN_CAT_CAT : 0.09 %
+    part des écarts où le Npop diffère de la référence : 12.39 %
+  B6. Pathologies les plus concernées (part d'écart > tol, top 8) :
+    CAN_PRO_CAT :  29.21 %
+    CAN_PRO_SUR :  29.05 %
+    CAN_PRO_ACT :  28.24 %
+    NEU_DEM_CAT :  20.42 %
+    NEU_PRK_IND :  18.32 %
+    CAN_SEI_CAT :  18.18 %
+    CAN_SEI_SUR :  18.10 %
+    CAN_CRE_SUR :  17.04 %
+  B7. Par classe d'âge (part d'écart > tol) :
+    00-04=3.74 % | 05-09=3.74 % | 10-14=3.74 % | 15-19=4.06 % | 20-24=5.94 % | 25-29=7.05 % | 30-34=6.43 % | 35-39=6.20 % | 40-44=5.67 % | 45-49=4.61 % | 50-54=4.65 % | 55-59=5.39 % | 60-64=5.82 % | 65-69=6.26 % | 70-74=8.59 % | 75-79=14.46 % | 80-84=20.16 % | 85-89=28.70 % | 90-94=47.48 % | 95et+=72.52 %
