@@ -10,7 +10,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from utils.viz import trend_chart
+from utils.viz import trend_chart, index_map, region_chart, OVERSEAS
 
 ROOT = Path(__file__).resolve().parent
 PROC = ROOT / "data" / "processed"
@@ -26,14 +26,18 @@ def load(name):
 
 
 @st.cache_data
+def load_geojson():
+    with open(ROOT / "data" / "geo" / "departements.geojson", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@st.cache_data
 def dept_names():
     """Department code -> name (the data only has codes)."""
-    with open(ROOT / "data" / "geo" / "departements.geojson", encoding="utf-8") as f:
-        names = {x["properties"]["code"]: x["properties"]["nom"] for x in json.load(f)["features"]}
+    names = {x["properties"]["code"]: x["properties"]["nom"] for x in load_geojson()["features"]}
     names.update({"971": "Guadeloupe", "972": "Martinique", "973": "Guyane",
                   "974": "La Réunion", "976": "Mayotte"})
     return names
-
 
 def fmt(x, digits=0, suffix=""):
     """Format a number for display, 'n/a' when missing."""
@@ -105,6 +109,29 @@ if top == "NEU_DEM_CAT" and y0 <= 2018 <= y1:   # dementia only: possible break
 st.plotly_chart(fig)
 st.caption(f"Chart description: prevalence of {label} for {departments[dept]} compared "
            f"with France, rebased to 100 in {y0}.")
+
+# --- Map: comparative index by department
+st.subheader(f"Where is {label} above what age explains? ({y1})")
+idx = index[(index["geo_level"] == "dept") & (index["top"] == top)
+            & (index["sexe"] == sexe) & (index["annee"] == y1)]
+st.plotly_chart(index_map(idx, load_geojson(), departments, f"Comparative index, {y1}"))
+
+st.caption("Overseas departments (off the map):")
+for col, code in zip(st.columns(5), OVERSEAS):
+    value = idx.loc[idx["dept"] == code, "indice"]
+    col.metric(departments[code], fmt(value.iloc[0], 2) if len(value) else "n/a")
+
+st.caption("Index = observed cases / cases expected from the age structure (1.2 = 20% more than expected). "
+           "Grey: within +/-10% of France. Colours are capped at 0.7-1.3. "
+           "A statistical gap, not a causal explanation.")
+
+# --- Regions: where to look first
+st.subheader(f"Which regions should we look at first? ({y1})")
+reg = index[(index["geo_level"] == "region") & (index["top"] == top)
+            & (index["sexe"] == sexe) & (index["annee"] == y1)].dropna(subset=["indice"])
+st.plotly_chart(region_chart(reg, f"Comparative index by region, {y1}"))
+st.caption("Grey band: within +/-10% of France. Grey bars: 95% confidence interval. "
+           "Values below 0.6 are off the chart (e.g. Mayotte). A gap shows where to look, not why.")
 
 # --- Prevalence by age (France)
 st.subheader(f"Prevalence by age group in {y1}")
