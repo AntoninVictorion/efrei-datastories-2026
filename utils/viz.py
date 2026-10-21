@@ -56,3 +56,15 @@ def region_chart(df, title):
     fig.update_yaxes(categoryorder="array", categoryarray=df["region_nom"], dtick=1)  # one label per row
     fig.update_layout(height=550)
     return fig
+
+def age_chart(df, title):
+    """Prevalence by age: one panel per condition (own y axis), men vs women."""
+    fig = px.line(df, x="age_mid", y="prevalence", color="sex", facet_col="condition",
+                  markers=True, title=title,
+                  labels={"age_mid": "Age (years)", "prevalence": "Prevalence (%)",
+                          "sex": "", "condition": ""},
+                  color_discrete_map={"Men": "#2a78d6", "Women": "#eb6834"},
+                  category_orders={"condition": ["Cancers", "Dementia", "Neurological diseases"]},)
+    fig.update_yaxes(matches=None, showticklabels=True)   # each panel keeps its own scale
+    fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))  # "=Cancers" -> "Cancers"
+    return fig

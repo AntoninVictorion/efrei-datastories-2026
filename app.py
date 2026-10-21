@@ -7,16 +7,14 @@ import json
 from pathlib import Path
 
 import pandas as pd
-import plotly.graph_objects as go
 import streamlit as st
 
-from utils.viz import trend_chart, index_map, region_chart, OVERSEAS
+from utils.viz import trend_chart, index_map, region_chart, age_chart, OVERSEAS
 
 ROOT = Path(__file__).resolve().parent
 PROC = ROOT / "data" / "processed"
 SEX_LABELS = {"T": "All", "H": "Men", "F": "Women"}
-SEX_COLORS = {"T": "#1f4e79", "H": "#1f77b4", "F": "#d95f02"}
-
+CONDITIONS = {"CAN_CAT_CAT": "Cancers", "NEU_DEM_CAT": "Dementia", "NEU_CAT_CAT": "Neurological diseases"}
 st.set_page_config(page_title="Cancers and dementia in France", page_icon="📈", layout="wide")
 
 
@@ -133,22 +131,15 @@ st.plotly_chart(region_chart(reg, f"Comparative index by region, {y1}"))
 st.caption("Grey band: within +/-10% of France. Grey bars: 95% confidence interval. "
            "Values below 0.6 are off the chart (e.g. Mayotte). A gap shows where to look, not why.")
 
-# --- Prevalence by age (France)
-st.subheader(f"Prevalence by age group in {y1}")
-prof = profile[(profile["top"] == top) & (profile["annee"] == y1)].copy()
-prof["age_label"] = prof["age_label"].str.replace(" ans et +", "+").str.replace(" ans", "")
-order = prof.drop_duplicates("age_label").sort_values("age_min")["age_label"].tolist()
-
-fig2 = go.Figure()
-for s in [s for s in ("H", "F") if s in set(prof["sexe"])] or ["T"]:
-    p = prof[prof["sexe"] == s].sort_values("age_min")
-    fig2.add_scatter(x=p["age_label"], y=p["prevalence"], name=SEX_LABELS[s], mode="lines+markers",
-                     line=dict(color=SEX_COLORS[s], width=3))
-fig2.update_layout(template="plotly_white", xaxis_title="Age group (years)",
-                   yaxis_title="Prevalence (%)", xaxis=dict(categoryorder="array", categoryarray=order))
-st.plotly_chart(fig2)
-st.caption("Age groups with fewer than 11 patients are hidden (statistical confidentiality): "
-           "the curve may be cut for the youngest ages.")
+# --- Context: why adjust for age?
+st.subheader("Why adjust for age? Prevalence rises steeply with age")
+age_df = profile[profile["top"].isin(CONDITIONS) & (profile["annee"] == y1)
+                 & profile["sexe"].isin(["H", "F"])].copy()
+age_df["condition"] = age_df["top"].map(CONDITIONS)
+age_df["sex"] = age_df["sexe"].map(SEX_LABELS)
+st.plotly_chart(age_chart(age_df.sort_values("age_mid"), f"Prevalence by age, France, {y1}"))
+st.caption("Each panel has its own scale: compare the shapes, not the levels. "
+           "Age groups with fewer than 11 patients are hidden (statistical confidentiality).")
 
 with st.expander("How to read these figures"):
     st.markdown(
