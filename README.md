@@ -96,4 +96,4 @@ The full report is in the app. Key points:
 
 ## Limitations
 
-- Prevalence is **detected from reimbursed care**, not a clinical diagnosis. The reference population is insured people who
+- Prevalence is **detected from reimbursed care**, not a clinical diagnosis. The reference population is insured people who used the health system, so it may differ from the whole resident population.
