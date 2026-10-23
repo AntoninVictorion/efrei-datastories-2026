@@ -38,7 +38,7 @@ def index_map(df, geojson, names, title):
                                        "ic_bas": ":.2f", "ic_haut": ":.2f"},
         labels={"indice": "Index", "ic_bas": "95% CI low", "ic_haut": "95% CI high"},
         title=title)
-    fig.update_geos(fitbounds="locations", visible=False)
+    fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
     return fig
 
 

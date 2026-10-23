@@ -37,10 +37,9 @@ def dept_names():
                   "974": "La Réunion", "976": "Mayotte"})
     return names
 
-def fmt(x, digits=0, suffix=""):
+def fmt(x, digits=0, suffix="", sign=False):
     """Format a number for display, 'n/a' when missing."""
-    return "n/a" if pd.isna(x) else f"{x:,.{digits}f}{suffix}"
-
+    return "n/a" if pd.isna(x) else f"{x:{'+' if sign else ''},.{digits}f}{suffix}"
 
 # --- Load data
 tables = ("trend_national", "profile_age_sex", "index_territoire")
@@ -82,23 +81,44 @@ if win.empty:
 first, last = win.iloc[0], win.iloc[-1]
 label = names[top]
 
-# --- Key figures (France)
-c1, c2, c3 = st.columns(3)
-delta = None
-if y1 > y0 and pd.notna(first["prevalence"]) and pd.notna(last["prevalence"]):
-    delta = f"{last['prevalence'] - first['prevalence']:+.2f} pt since {y0}"
-c1.metric(f"Prevalence in {y1}", fmt(last["prevalence"], 2, "%"), delta,
-          help="Share of insured people treated for this condition.")
-c2.metric(f"Patients in {y1}", fmt(last["effectif"]), help="Published counts, rounded to the nearest 10.")
-c3.metric("Reference population", fmt(last["population"]),
-          help="Insured people who used healthcare during the year, not the whole population.")
-
-# --- Trend: selected department vs France
-st.subheader(f"{label}: how has it changed since {y0}?")
+# --- Selected department (used by the key figures and the trend chart)
 dept_df = index[(index["geo_level"] == "dept") & (index["top"] == top)
                 & (index["sexe"] == sexe) & (index["dept"] == dept)]
 dept_df = dept_df[dept_df["annee"].between(y0, y1)].sort_values("annee")
 dept_df = dept_df.rename(columns={"prevalence_brute": "prevalence"})
+if dept_df.empty:
+    st.warning("No data for this department.")
+    st.stop()
+d_first, d_last = dept_df.iloc[0], dept_df.iloc[-1]
+
+
+def pct_change(a, b):
+    """Relative change from a to b, in %."""
+    return (b / a - 1) * 100
+
+
+gap = pct_change(last["prevalence"], d_last["prevalence"])               # department vs France
+change_dept = pct_change(d_first["prevalence"], d_last["prevalence"])
+change_france = pct_change(first["prevalence"], last["prevalence"])
+share = d_last["effectif_observe"] / last["effectif"] * 100               # share of French patients
+
+# --- Key figures: department vs France
+c1, c2, c3, c4 = st.columns(4)
+c1.metric(f"Prevalence in {y1}", fmt(d_last["prevalence"], 2, "%"),
+          f"{fmt(gap, 0, '%', True)} vs France", delta_color="off",
+          help="Share of insured people treated. Not adjusted for age: see the index.")
+c2.metric(f"Change since {y0}", fmt(change_dept, 1, "%", True),
+          f"{fmt(change_dept - change_france, 1, ' pts', True)} vs France", delta_color="off",
+          help="Relative change of the prevalence over the selected period.")
+c3.metric(f"Comparative index in {y1}", fmt(d_last["indice"], 2),
+          help="Observed / expected cases given the age structure. 1.2 = 20% more than expected. "
+               "Already relative to France (1 = France).")
+c4.metric(f"Patients in {y1}", fmt(d_last["effectif_observe"]),
+          f"{fmt(share, 1, '%')} of French patients", delta_color="off",
+          help="Published counts, rounded to the nearest 10.")
+# --- Trend: selected department vs France
+st.subheader(f"{label}: how has it changed since {y0}?")
+
 
 fig = trend_chart(win, dept_df, departments[dept], f"{label}: change since {y0}")
 if top == "NEU_DEM_CAT" and y0 <= 2018 <= y1:   # dementia only: possible break
@@ -147,4 +167,5 @@ with st.expander("How to read these figures"):
         "(CNAM algorithms). It is not a clinical diagnosis.\n"
         "- **Counts** are rounded to the nearest 10; counts below 11 are hidden.\n"
         "- **Not age-standardised** (France curve): a rise can reflect population ageing.\n"
-        "- **2020**: lower use of healthcare during Covid-19 may have reduced detected cases.")
+        "- **2020**: lower use of healthcare during Covid-19 may have reduced detected cases.\n"
+        "- **Reference population**: insured people who used healthcare during the year, not the whole population.\n")
