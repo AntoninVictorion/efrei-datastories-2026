@@ -260,6 +260,12 @@ def check_npop(f: pd.DataFrame) -> dict:
             int(k): round(float(v), 4) for k, v in (tot / (h + fe)).dropna().items()}
     return out
 
+def check_duplicates(f: pd.DataFrame) -> dict:
+    key = ["annee", "top", "sexe", "age", "geo_level", "region", "dept"]
+    return {"cle": key,
+            "lignes_dupliquees": int(f.duplicated(key).sum()),
+            "valeurs_manquantes": {c: int(f[c].isna().sum()) for c in ("ntop", "npop")}}
+
 
 # --------------------------------------------------------------------------- #
 def main() -> None:
@@ -290,6 +296,7 @@ def main() -> None:
         "geographie": check_geography(facts),
         "categorie_vs_actif_plus_surveillance": check_cat_vs_act_sur(facts, dim),
         "population_npop": check_npop(facts),
+        "doublons_et_manquants": check_duplicates(facts),
     }
     (OUT_DIR / "quality_report.json").write_text(
         json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
