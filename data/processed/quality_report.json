@@ -398,5 +398,21 @@
       "2023": 1.0,
       "2024": 1.0
     }
+  },
+  "doublons_et_manquants": {
+    "cle": [
+      "annee",
+      "top",
+      "sexe",
+      "age",
+      "geo_level",
+      "region",
+      "dept"
+    ],
+    "lignes_dupliquees": 0,
+    "valeurs_manquantes": {
+      "ntop": 528502,
+      "npop": 0
+    }
   }
 }
