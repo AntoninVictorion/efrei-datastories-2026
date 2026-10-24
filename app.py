@@ -169,9 +169,8 @@ reg = index[(index["geo_level"] == "region") & (index["top"] == top)
             & (index["sexe"] == sexe) & (index["annee"] == y1)].dropna(subset=["indice"])
 st.markdown(story.region_text(reg))
 st.plotly_chart(region_chart(reg, f"Comparative index by region, {y1}"))
-st.caption("Grey band: within +/-10% of France. Grey bars: 95% confidence interval. "
-           "Values below 0.6 are off the chart (e.g. Mayotte). A gap shows where to look, not why.")
-
+st.caption("Grey band: within +/-10% of France. Horizontal bars: 95% confidence interval. "
+           "A gap shows where to look, not why.")
 # --- 6. Is the gap changing?
 st.header("6. Are the gaps growing or shrinking?")
 if y0 == y1:
@@ -211,3 +210,4 @@ if (PROC / "quality_report.json").exists():
     show_quality(json.loads((PROC / "quality_report.json").read_text(encoding="utf-8")))
 else:
     st.warning("quality_report.json not found: run `python scripts/build_facts.py`.")
+

@@ -33,5 +33,5 @@ Lung cancer, both sexes, 2015-2024, Hérault (34). Transition from chapter 1: "C
 - The population is insured people who used care in the year; detection relies on reimbursed care, not clinical diagnoses.
 - Counts below 11 are masked, others are rounded to 10.
 - No causal reading: screening, access to care and coding practices are hypotheses.
-- Overseas departments are shown apart (very low index) and absent from the regional chart.
+- Overseas regions appear in the 2024 regional chart (all far below France) but not in the 2015 vs 2024 chart.
 - The 2018 break concerns dementia only and is an unverified hypothesis.
