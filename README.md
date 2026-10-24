@@ -2,10 +2,10 @@
 
 Data-storytelling dashboard built with **Streamlit** for the #EFREIDataStories2026 project.
 
-- **Deployed app:** [add the URL after deployment]
-- **Demo video (2-4 min):** [add the link]
-- **Storyboard:** [add the link]
-- **Author:** [First name LAST NAME], student n° [number], group [group]
+- **Deployed app:** https://health-priorities-france.streamlit.app
+- **Demo video (2-4 min):** https://youtu.be/Xwz9CC0PZrM
+- **Storyboard:** [docs/storyboard.md](https://github.com/AntoninVictorion/efrei-datastories-2026/blob/main/docs/storyboard.md)
+- **Author:** Antonin VICTORION, student n° 20231614, group BIA
 
 ## The question
 
@@ -13,7 +13,7 @@ Data-storytelling dashboard built with **Streamlit** for the #EFREIDataStories20
 
 **Audience:** a regional health decision-maker, or an informed citizen.
 
-**Narrative:** hook (cancer up, dementia down, while the population ages), context (age drives prevalence), key insights (where, which regions, is it changing, where first), implications and next steps.
+**Narrative:** hook (cancer up, dementia down, while the population ages), context (age drives prevalence), key insights (where, which regions, is it changing, where first), implications and next steps. In the demo video, lung cancer and the département of Hérault serve as the guiding case.
 
 ## What the app shows
 
@@ -44,12 +44,17 @@ Data-storytelling dashboard built with **Streamlit** for the #EFREIDataStories20
 The processed tables are versioned in `data/processed/`, so the app runs without downloading the raw file.
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment-dev.yml
 conda activate efrei-dashboard
 streamlit run app.py
 ```
 
-Without conda: Python 3.11, then `pip install -r requirements.txt`.
+Without conda: Python 3.11, then `pip install -r requirements.txt`, then `streamlit run app.py`.
+
+### Environment files
+
+- `requirements.txt`: pinned dependencies used by the deployed app (pip, Streamlit Community Cloud).
+- `environment-dev.yml`: conda environment for local development (conda-forge, Python 3.11).
 
 ## Rebuild the data from scratch
 
@@ -74,6 +79,7 @@ utils/labels.py         English names of conditions and sexes
 scripts/                download, cleaning, checks, app tables
 data/processed/         versioned parquet tables and quality report
 data/geo/               department outlines
+docs/storyboard.md      storyboard
 ```
 
 ## Method in short
@@ -81,6 +87,7 @@ data/geo/               department outlines
 - **Prevalence:** share of insured people treated for a condition. We display the **published CNAM prevalence**.
 - **Comparative index** (indirect standardisation): observed cases divided by the cases expected if the territory had the national prevalence at each age. 1.2 means 20% more cases than expected. 95% confidence interval: Byar method.
 - **Threshold:** gaps within +/-10% are shown as neutral. Statistical significance is not used, because with very large counts almost every gap is significant.
+- **Patients above expected:** observed minus expected cases, used as a measure of volume next to the index (intensity).
 - **No total is recomputed:** each level uses its own published row.
 - **Conditions are never summed:** a patient can have several.
 
@@ -97,3 +104,29 @@ The full report is in the app. Key points:
 ## Limitations
 
 - Prevalence is **detected from reimbursed care**, not a clinical diagnosis. The reference population is insured people who used the health system, so it may differ from the whole resident population.
+- Prevalence mixes new cases and survival.
+- Trend curves use raw prevalence, not age-standardised: a rise can partly reflect ageing. Only the comparative index is age-adjusted.
+- The index compares each territory with France, not two territories with each other.
+- No causal reading: screening, access to care, social conditions and coding practices are hypotheses, not findings.
+- The dementia decline since 2015 may be partly artificial. Anti-Alzheimer drugs stopped being reimbursed in August 2018; if the CNAM algorithm uses them, this could create a break. This is an **unverified hypothesis**.
+- Overseas departments have very low indices and are shown apart from the map.
+
+## Performance
+
+- Pre-aggregated parquet tables are built once by `scripts/prep.py`; the app never reads the raw file.
+- Data loading uses `st.cache_data`.
+
+## Accessibility
+
+- Every chart has labelled axes with units, a title and a plain-language description below it.
+- Colours: a diverging blue-orange scale with a neutral grey band; colour is never the only cue (values appear in tooltips and in generated sentences).
+
+## Reproducibility
+
+- Dependencies are pinned in `requirements.txt`; local environment in `environment-dev.yml`.
+- The download script caches the file and records its SHA-256 checksum.
+- No sampling or randomness: results are deterministic.
+
+## Use of AI
+
+An AI assistant (Claude) was used for guidance and code review. The code was shown for review before being added to the repository; all code and text are understood and validated by the author.
