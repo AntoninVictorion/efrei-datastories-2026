@@ -30,7 +30,8 @@ def show_quality(report):
     by_age["Age group"] = by_age["Age group"].str.replace("et+", "+", regex=False)
     fig = px.bar(by_age, x="Age group", y="Masked", title="Share of masked rows by age group (departments)",
                  labels={"Masked": "Share of masked rows"})
-    fig.update_yaxes(tickformat=".0%")
+    fig.update_xaxes(type="category", title="Age group")   # labels are text, not dates
+    fig.update_yaxes(tickformat=".0%", range=[0, 1], title="Share of masked rows")
     st.plotly_chart(fig)
     st.info("Department-level age views are therefore limited to ages 50-89, where at most about 12% of rows "
             "are masked. At department level, all-ages figures are masked in only 0.3% of rows.")
