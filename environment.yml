@@ -3,35 +3,11 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  # Interpréteur : 3.11 = meilleur compromis de compatibilité (Streamlit, geopandas, pyarrow)
   - python=3.11
   - pip
-
-  # Socle data
-  - numpy>=1.26,<3
-  - pandas>=2.2,<3
-  - pyarrow>=15
-  - scipy>=1.11
-  - scikit-learn>=1.4        # modèles simples / what-if si besoin
-
-  # App
-  - streamlit>=1.33          # exigence du sujet
-
-  # Visualisation
-  - plotly>=5.20
-  - altair>=5.2
-  - pydeck>=0.9
-
-  # Géo (installé via conda-forge : GDAL/GEOS/PROJ gérés automatiquement)
-  - geopandas>=0.14
-  - shapely>=2.0
-  - pyproj>=3.6
-
-  # Données / réseau
-  - requests>=2.31
-
-  # Confort de dev
-  - jupyterlab               # exploration (EDA) avant de passer en Streamlit
-  - ipykernel
-  - black
-  - ruff
+  - numpy=2.4.6
+  - pandas=2.3.3
+  - pyarrow=25.0.0
+  - streamlit=1.59.1
+  - plotly=7.1.0
+  - requests=2.34.2
